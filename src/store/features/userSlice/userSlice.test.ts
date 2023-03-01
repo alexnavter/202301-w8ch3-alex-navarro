@@ -1,5 +1,6 @@
-import { User, UserState } from "../../../types";
+import { Product, User, UserState } from "../../../types";
 import {
+  addItemToShoppingCartActionCreator,
   loginUserActionCreator,
   logoutUserActionCreator,
   userReducer,
@@ -57,6 +58,47 @@ describe("Given a userReducer function", () => {
         currentUserState,
         logoutUserActionCreator()
       );
+
+      expect(newUserState).toStrictEqual(expectedNewUserState);
+    });
+  });
+
+  describe("When it's invoked and receives a currentUserState and a addItemToShoppingCart action to add an item", () => {
+    test("Then it should return the new state with the new item in the user shopping cart", () => {
+      const currentUserState: UserState = {
+        username: "Ana",
+        adress: "Andorra",
+        shoppingCart: [],
+        isLogged: true,
+      };
+
+      const newItem: Product = {
+        name: "patateta",
+        image: "hola",
+        price: 2,
+        category: "tuberculo",
+        isAvailable: true,
+      };
+
+      const newUserState: User = userReducer(
+        currentUserState,
+        addItemToShoppingCartActionCreator(newItem)
+      );
+
+      const expectedNewUserState: UserState = {
+        username: "Ana",
+        adress: "Andorra",
+        shoppingCart: [
+          {
+            name: "patateta",
+            image: "hola",
+            price: 2,
+            category: "tuberculo",
+            isAvailable: true,
+          },
+        ],
+        isLogged: true,
+      };
 
       expect(newUserState).toStrictEqual(expectedNewUserState);
     });
