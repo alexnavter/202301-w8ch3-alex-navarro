@@ -23,9 +23,13 @@
 ## Data modification
 
 - Set isLogged from user
-- Add item to shopping card of user
-- Remove item from shopping card of user
+- Unset isLogged from user
+
+- Add item to shopping cart of user
+- Remove item from shopping cart of user
 
 - Set isAvailable from products
+- Unset isAvailable from products
 
-- Set isFullfiled
+- Set isFullfiled from order
+- Unset isFullfiled from order
