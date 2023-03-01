@@ -1,8 +1,11 @@
 export interface User {
   username: string;
   adress: string;
-  isLogged: boolean;
   shoppingCart: Products;
+}
+
+export interface UserState extends User {
+  isLogged: boolean;
 }
 
 export interface Product {
