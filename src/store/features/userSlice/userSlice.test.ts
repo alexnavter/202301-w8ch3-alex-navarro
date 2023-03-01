@@ -73,6 +73,7 @@ describe("Given a userReducer function", () => {
       };
 
       const newItem: Product = {
+        id: 2,
         name: "patateta",
         image: "hola",
         price: 2,
@@ -90,6 +91,7 @@ describe("Given a userReducer function", () => {
         adress: "Andorra",
         shoppingCart: [
           {
+            id: 2,
             name: "patateta",
             image: "hola",
             price: 2,
