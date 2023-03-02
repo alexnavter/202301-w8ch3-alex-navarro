@@ -28,6 +28,15 @@ const userSlice = createSlice({
       ...currentUserState,
       shoppingCart: [...currentUserState.shoppingCart, action.payload],
     }),
+    removeItemFromShoppingCart: (
+      currentUserState: UserState,
+      action: PayloadAction<Product["id"]>
+    ): UserState => ({
+      ...currentUserState,
+      shoppingCart: currentUserState.shoppingCart.filter(
+        (item) => item.id !== action.payload
+      ),
+    }),
   },
 });
 
@@ -36,4 +45,5 @@ export const {
   loginUser: loginUserActionCreator,
   logoutUser: logoutUserActionCreator,
   addItemToShoppingCart: addItemToShoppingCartActionCreator,
+  removeItemFromShoppingCart: removeItemToShoppingCartActionCreator,
 } = userSlice.actions;
