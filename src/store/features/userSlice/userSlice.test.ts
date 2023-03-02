@@ -3,6 +3,7 @@ import {
   addItemToShoppingCartActionCreator,
   loginUserActionCreator,
   logoutUserActionCreator,
+  removeItemToShoppingCartActionCreator,
   userReducer,
 } from "./userSlice";
 
@@ -73,6 +74,7 @@ describe("Given a userReducer function", () => {
       };
 
       const newItem: Product = {
+        id: 2,
         name: "patateta",
         image: "hola",
         price: 2,
@@ -80,16 +82,12 @@ describe("Given a userReducer function", () => {
         isAvailable: true,
       };
 
-      const newUserState: User = userReducer(
-        currentUserState,
-        addItemToShoppingCartActionCreator(newItem)
-      );
-
       const expectedNewUserState: UserState = {
         username: "Ana",
         adress: "Andorra",
         shoppingCart: [
           {
+            id: 2,
             name: "patateta",
             image: "hola",
             price: 2,
@@ -99,6 +97,46 @@ describe("Given a userReducer function", () => {
         ],
         isLogged: true,
       };
+
+      const newUserState: User = userReducer(
+        currentUserState,
+        addItemToShoppingCartActionCreator(newItem)
+      );
+
+      expect(newUserState).toStrictEqual(expectedNewUserState);
+    });
+  });
+
+  describe("When it's invoked and receives a currentUserState and a removeItemFromShoppingCart action to remove an item with id 2", () => {
+    test("Then it should return the new state with the item removed from the user shopping cart", () => {
+      const currentUserState: UserState = {
+        username: "Ana",
+        adress: "Andorra",
+        shoppingCart: [
+          {
+            id: 2,
+            name: "patateta",
+            image: "hola",
+            price: 2,
+            category: "tuberculo",
+            isAvailable: true,
+          },
+        ],
+        isLogged: true,
+      };
+      const idOfItemToRemove = 2;
+
+      const expectedNewUserState: UserState = {
+        username: "Ana",
+        adress: "Andorra",
+        shoppingCart: [],
+        isLogged: true,
+      };
+
+      const newUserState: User = userReducer(
+        currentUserState,
+        removeItemToShoppingCartActionCreator(idOfItemToRemove)
+      );
 
       expect(newUserState).toStrictEqual(expectedNewUserState);
     });
